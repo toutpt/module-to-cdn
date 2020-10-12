@@ -37,11 +37,11 @@ function main(moduleName, version, options) {
     const env = options.env || 'development';
 
     if (typeof moduleName !== 'string') {
-        throw new TypeError('Expected \'moduleName\' to be a string');
+        throw new TypeError("Expected 'moduleName' to be a string");
     }
 
     if (typeof version !== 'string') {
-        throw new TypeError('Expected \'version\' to be a string');
+        throw new TypeError("Expected 'version' to be a string");
     }
 
     const isModuleAvailable = moduleName in modules;
@@ -50,16 +50,23 @@ function main(moduleName, version, options) {
         return null;
     }
 
-    const range = Object.keys(modules[moduleName].versions)
-        .find(range => semver.satisfies(version, range));
-    const config = modules[moduleName].versions[range];
+    const module = modules[moduleName];
+    const range = Object.keys(module.versions).find(range => semver.satisfies(version, range));
+    const config = module.versions[range];
+    const styleConfig = module['style-versions'] && module['style-versions'][range];
 
     if (config == null) {
         return null;
     }
 
     let path = env === 'development' ? config.development : config.production;
+    let stylePath;
+    if (styleConfig) {
+        stylePath = env === 'development' ? styleConfig.development : styleConfig.production;
+    }
+
     let url;
+    let styleUrl;
     let root;
     if (path.startsWith('/')) {
         url = getURL({
@@ -67,6 +74,13 @@ function main(moduleName, version, options) {
             version,
             path
         });
+        styleUrl =
+            stylePath &&
+            getURL({
+                name: moduleName,
+                version,
+                path: stylePath
+            });
         try {
             const mainPath = require.resolve(moduleName);
             const splited = mainPath.split('node_modules');
@@ -75,6 +89,7 @@ function main(moduleName, version, options) {
         } catch {}
     } else {
         url = path.replace('[version]', version);
+        styleUrl = stylePath && stylePath.replace('[version]', version);
         path = undefined;
     }
 
@@ -84,7 +99,9 @@ function main(moduleName, version, options) {
         url,
         version,
         path,
-        local: root
+        local: root,
+        styleUrl,
+        stylePath
     };
 }
 
