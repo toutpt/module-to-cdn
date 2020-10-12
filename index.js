@@ -37,11 +37,11 @@ function main(moduleName, version, options) {
     const env = options.env || 'development';
 
     if (typeof moduleName !== 'string') {
-        throw new TypeError("Expected 'moduleName' to be a string");
+        throw new TypeError('Expected \'moduleName\' to be a string');
     }
 
     if (typeof version !== 'string') {
-        throw new TypeError("Expected 'version' to be a string");
+        throw new TypeError('Expected \'version\' to be a string');
     }
 
     const isModuleAvailable = moduleName in modules;
