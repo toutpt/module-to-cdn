@@ -38,9 +38,11 @@ function getModuleName(importPath) {
     if ((isScoped && splitted.length < 3) || (!isScoped && splitted.length < 2)) {
         return importPath;
     }
+
     if (isScoped) {
         return `${splitted[0]}/${splitted[1]}`;
     }
+
     return splitted[0];
 }
 
