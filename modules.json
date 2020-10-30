@@ -322,7 +322,7 @@
   "immutable": {
     "var": "Immutable",
     "versions": {
-      ">= 3.0.0": {
+      ">= 3.0.0 < 3.6.3 || > 3.6.3": {
         "development": "/dist/immutable.js",
         "production": "/dist/immutable.min.js"
       }
@@ -455,7 +455,7 @@
         "development": "/dist/react.js",
         "production": "/dist/react.min.js"
       },
-      ">= 16.0.0": {
+      ">= 16.0.0 < 16.6.2 || > 16.6.2": {
         "development": "/umd/react.development.js",
         "production": "/umd/react.production.min.js"
       }
@@ -556,7 +556,7 @@
         "development": "/dist/react-dom.js",
         "production": "/dist/react-dom.min.js"
       },
-      ">= 16.0.0": {
+      ">= 16.0.0 < 16.6.2 || > 16.6.2": {
         "development": "/umd/react-dom.development.js",
         "production": "/umd/react-dom.production.min.js"
       }
