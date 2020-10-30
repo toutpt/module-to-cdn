@@ -50,6 +50,7 @@
     "rules": {
       "ava/no-ignored-test-files": "off",
       "eqeqeq": "off",
+      "quotes": "off",
       "no-eq-null": "off",
       "node/no-unsupported-features/es-syntax": "off",
       "unicorn/no-reduce": "off"
